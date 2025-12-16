@@ -12,7 +12,7 @@ Synonymous codon substitutions do not alter the amino-acid sequence of a protein
 
 In this project, we benchmark two codon-level embedding approaches:
 
-- **Codon2Vec** — a Word2Vec-style embedding that captures local codon co-occurrence  
+- **CodonVE** — a Word2Vec-style embedding that captures local codon co-occurrence inspired by the work of Codon2Vec  
 - **CodonFM** — a transformer-based foundation model trained on large-scale coding sequence corpora  
 
 Both methods are evaluated using a controlled synonymous-variant dataset to assess how well their embeddings predict translation efficiency.
@@ -34,16 +34,16 @@ This design isolates **elongation-related effects** while minimising variation d
 ## Methodology
 
 1. **Preprocessing**
-   - Codon2Vec: sequence cleaning, codon tokenisation, Word2Vec training
+   - CodonVE: sequence cleaning, codon tokenisation, Word2Vec training
    - CodonFM: direct encoding using a pretrained codon-level transformer
 
 2. **Embedding Generation**
-   - Codon2Vec: 100-dimensional sequence embeddings via mean pooling
+   - CodonVE: 100-dimensional sequence embeddings via mean pooling
    - CodonFM: 2048-dimensional contextual sequence embeddings
 
 3. **Predictive Modelling**
-   - Regression models: Random Forest, XGBoost, MLP, linear baselines
-   - Evaluation metrics: R², RMSE, Spearman correlation
+   - Regression models: Random Forest
+   - Evaluation metrics: R² and Spearman correlation
 
 4. **Analysis**
    - Predictive performance comparison
@@ -57,11 +57,11 @@ The CodonFM experiments are based on the official NVIDIA Digital Biology noteboo
 - **NVIDIA CodonFM – EnCodon Downstream Task (mRFP Expression)**  
   https://github.com/NVIDIA-Digital-Bio/CodonFM/blob/main/notebooks/5-EnCodon-Downstream-Task-mRFP-expression.ipynb
 
-Our work extends this reference by performing a systematic benchmark comparison against Codon2Vec using identical data splits and evaluation metrics.
+Our work extends this reference by performing a systematic benchmark comparison against CodonVE using identical data splits and evaluation metrics.
 
 ## Key Findings
 
-- CodonFM embeddings consistently outperform Codon2Vec across all metrics.
+- CodonFM embeddings consistently outperform CodonVE across all metrics.
 - Transformer-based contextual modelling captures elongation-related regulatory signals beyond local codon co-occurrence.
 - Long-range and positional dependencies within coding sequences are important for predicting translation efficiency.
 
@@ -69,7 +69,7 @@ Our work extends this reference by performing a systematic benchmark comparison 
 
 ```
 ├── notebooks/
-│   ├── codon2vec_mRFP.ipynb
+│   ├── codonVE_mRFP.ipynb
 │   ├── codonFM_mRFP.ipynb
 ├── data/
 │   └── mRFP_Expression.csv
